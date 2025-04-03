@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: MAAPIGateway
+  cloud:
+    gateway:
+      routes:
+        - id: user-service
+          uri: lb://MAProjectUserServices
+          predicates:
+            - Path=/users/**
+        - id: booking-service
+          uri: lb://MAProjectBookingServices
+          predicates:
+            - Path=/bookings/**
+        - id: payment-service
+          uri: lb://MAProjectPaymentServices
+          predicates:
+            - Path=/payments/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
